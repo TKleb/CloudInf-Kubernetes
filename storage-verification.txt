@@ -1,0 +1,15 @@
+Name:          pvc-test
+Namespace:     default
+StorageClass:  localstorage
+Status:        Bound
+Volume:        pv-test
+Labels:        <none>
+Annotations:   kubernetes.io/change-cause: kubectl edit pvc pvc-test --record=true
+               pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      1Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       <none>
+Events:        <none>

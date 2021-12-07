@@ -1,0 +1,21 @@
+configInline:
+  address-pools:
+    - name: nginx
+      protocol: layer2
+      addresses:
+        - 10.18.9.7/32
+
+controller:
+  kind: DaemonSet
+  nodeSelector:
+    ingress: "true"
+  service:
+    enabled: true
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    annotations:
+      metallb.universe.tf/address-pool: nginx
+
+speaker:
+  nodeSelector:
+    ingress: "true"
