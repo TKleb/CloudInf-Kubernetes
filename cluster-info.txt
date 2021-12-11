@@ -1,0 +1,4 @@
+# /home/ins/cluster-info.txt
+1: 10.0.1.0/24
+2: 10.96.0.0/12
+3: The pod names will be suffixed with the node hostname with a leading hyphen eg. podxyz-worker-1 
