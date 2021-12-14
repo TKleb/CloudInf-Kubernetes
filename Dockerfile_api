@@ -7,4 +7,5 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=0 /go/src/bin/api ./bin/api
+EXPOSE 8000
 CMD ["./bin/api"]
