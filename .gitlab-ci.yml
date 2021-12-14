@@ -1,0 +1,58 @@
+############# Build with Kaniko
+
+# stages:
+#   - build
+
+# web:
+#   stage: build
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   before_script:
+#     - mkdir -p /kaniko/.docker
+#     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+#   script:
+#     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile_web --destination $CI_REGISTRY_IMAGE/web:latest
+
+# api:
+#   stage: build
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   before_script:
+#     - mkdir -p /kaniko/.docker
+#     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+#   script:
+#     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile_api --destination $CI_REGISTRY_IMAGE/api:latest
+
+
+############# Docker Alternative
+
+# stages:
+#   - build_docker
+
+# web:
+#   stage: build_docker
+#   image: docker:latest
+#   tags: [docker, privileged]
+#   services:
+#     - name: docker:dind
+#       alias: docker
+#   before_script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#   script:
+#     - docker build -t ${CI_REGISTRY_IMAGE}/web:latest -f $CI_PROJECT_DIR/Dockerfile_web .
+#     - docker push ${CI_REGISTRY_IMAGE}/web
+
+# api:
+#   stage: build_docker
+#   image: docker:latest
+#   tags: [docker, privileged]
+#   services:
+#     - name: docker:dind
+#       alias: docker
+#   before_script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#   script:
+#     - docker build -t ${CI_REGISTRY_IMAGE}/api:latest -f $CI_PROJECT_DIR/Dockerfile_web .
+#     - docker push ${CI_REGISTRY_IMAGE}/api
