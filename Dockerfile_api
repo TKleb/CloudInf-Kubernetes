@@ -1,0 +1,10 @@
+FROM golang:latest
+WORKDIR /go/src/
+COPY three-tier-application-k8s/api .
+RUN CGO_ENABLED=0 go build -a -o ./bin/api
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=0 /go/src/bin/api ./bin/api
+CMD ["./bin/api"]
