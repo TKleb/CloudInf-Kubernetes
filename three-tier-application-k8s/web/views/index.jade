@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome, the time on your database system is: 
+  p: img(src="/images/nyan.gif", title="nyan cat")
+  pre #{request_uuid}
+  ul
+    each event in events
+      li ID: #{event.id} - Host: #{event.content} - #{event.created_at}

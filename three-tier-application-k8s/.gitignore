@@ -1,0 +1,8 @@
+node_modules
+package-lock.json
+Dockerfile
+docker-compose.yaml
+old
+data
+api/bin
+logs.log
