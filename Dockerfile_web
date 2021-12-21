@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alpine
 COPY three-tier-application-k8s/web .
 RUN npm install
 EXPOSE 8080
