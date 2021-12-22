@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cldinf-app-db
+  namespace: cldinf-app
+spec:
+  replicas: 1
+  serviceName: cldinf-db
+  selector:
+    matchLabels:
+      app: cldinf-db
+      tier: database
+  template:
+    metadata:
+      labels:
+        app: cldinf-db
+        tier: database
+    spec:
+      containers:
+      - image: postgres:latest
+        name: cldinf-db
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: pw123+
+        - name: POSTGRES_DB
+          value: cldinf-db
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: pgdatabase
+          mountPath: /mnt/data
+      nodeSelector:
+        kubernetes.io/hostname: worker-1
+      volumes:
+      - name: pgdatabase
+        persistentVolumeClaim:
+          claimName: pvc-cldinf-app

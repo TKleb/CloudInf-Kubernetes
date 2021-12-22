@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: web-network-policy
+  namespace: cldinf-app
+spec:
+  podSelector:
+    matchLabels:
+      app: cldinf-web
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+    - {}
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            app: cldinf-api
+      ports:
+      - protocol: TCP
+        port: 8000
+    - to:
+      - namespaceSelector: {}
+      ports:
+      - protocol: UDP
+        port: 53

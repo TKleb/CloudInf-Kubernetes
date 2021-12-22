@@ -1,0 +1,1261 @@
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+ins@master:~$ sudo apt-mark hold kubelet kubeadm kubectl
+kubelet set on hold.
+kubeadm set on hold.
+kubectl set on hold.
+clear
+kubeadm --help
+ip link
+ins@master:~$ ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+2: ens2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+clear
+sudo swapoff -a
+sudo nano /etc/fstab
+swap
+clear
+sudo cat /proc/swaps
+clear
+sudo cat /sys/class/dmi/id/product_uuid
+sudo modprobe br_netfilter
+lsmod | grep br_netfilter
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+br_netfilter
+EOF
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sudo sysctl --system
+telnet 127.0.0.1 6443
+netstat -na | grep:6443
+sudo apt install net-tools
+sudo ufw allow 6443
+telnet 127.0.0.1 6443
+sudo service iptables restart
+sudo systemctl restart iptables
+netstat -lntu
+netstat -na | grep :6443
+sudo ufw allow 6443/tcp
+telnet 127.0.0.1 6443
+netstat -na | grep :6443
+netstat -lntu
+firewallc-d --list-ports
+firewall-cmd --list-ports
+sudo ufw disable
+sudo ufw enable
+netstat -lntu
+netstat -na | grep :6443
+sudo ufw allow 2379:2380/tcp
+sudo ufw disable
+sudo ufw enable
+telnet 127.0.0.1 6443
+netstat -na | grep :6443
+netstat -lntu
+sudo apt-install containerd
+sudo apt install containerd.io
+sudo apt install containerd
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+sudo systemctl restart containerd
+sudo systemctl status  containerd
+clear
+ls
+vi check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+clear
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+clear
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+clear
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+clear
+nano check-is-cluster-ready.sh 
+clear
+nano check-is-cluster-ready.sh 
+clear
+kubectl get nodes
+sudo kubectl get nodes
+kubectl 
+sudo kubectl get nodes
+kubectl get nodes
+kubectll explain pods
+kubectl explain pods
+clear
+kubectl get pods
+kubectl get pods --all-namespaces
+clear
+kubectl get nodes
+JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+kubectl describe nodes
+kubectl get services --sort-by=.metadata.name
+kubectl -o=wide
+kubectl --output=wide
+kubectl
+kubectl get nodes -o json | jq -r '.items[] | select ( .status.conditions[] | select( .type=="Ready" and .status=="True")) | .metadata.name'
+JSONPATH='{range .items[*]}{master}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+clear
+JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+JSONPATH='{range .items[*]}{@.metadata.name=master}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+clear
+JSONPATH='{range .items[*]}{metadata.name=master}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+clear
+JSONPATH='{range .items[1]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+MASTER='{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'&& kubectl get nodes -o jsonpath="$MASTER"
+MASTER='{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$MASTER" | grep "Ready=True"
+JSONPATH='{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+JSONPATH='{range .items[1]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+JSONPATH='{range .items[2]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+JSONPATH='{range .items[3]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+JSONPATH='{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+MASTER='{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'  && kubectl get nodes -o jsonpath="$MASTER" | grep "Ready=True"
+kubectl get nodes -o jsonpath="{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}"
+clear
+kubectl get nodes -o jsonpath="{range .items[0]}{@.metadata.name}:{range @.status.conditions[*]}{@.type=="Ready"}={@.status};{end}{end}"
+kubectl get nodes -o jsonpath="{range .items[0]}{@.metadata.name}:{.status.conditions[].type=="Ready"}={@.status};{end}{end}"
+kubectl get nodes -o jsonpath="{range .items[0]}{@.metadata.name}:{@.status.conditions[].type=="Ready"}={@.status};{end}{end}"
+kubectl get nodes -o jsonpath="{range .items[0]}{@.metadata.name}:{@.status.conditions[].type=='Ready'}={@.status};{end}{end}"
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{@.status.conditions[].type}={@.status};{end}{end}"
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}" | grep "Ready=True"
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{range @.status.conditions[].type=='ready'}={@.status};{end}{end}" | grep "Ready=True"
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{range @.status.conditions[].type=='ready'}={@.status};{end}{end}"
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{range @.status.conditions[].type=='Ready'}={@.status};{end}{end}"
+clear
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{@.status.conditions[?(@.type=='Ready')]}={@.status};{end}{end}"
+clear
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{.status.conditions[?(@.type=='Ready')]}={@.status};{end}{end}"
+clear
+kubectl get nodes -o jsonpath="{range .items[*]}{@.metadata.name}:{.status.conditions[?(@.type=='Ready')].status};{end}{end}"
+clear
+kubectl get nodes -o jsonpath='{.status.conditions[].type}'
+kubectl get nodes -o jsonpath='{.status.conditions[].type=="Ready"}'
+kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}
+' | grep "Ready=True"
+kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[?(@.type=="Ready")]}{@.type}={@.status};{end}{end}
+' | grep "Ready=True"
+kubectl get nodes -o jsonpath='{range .items[*]}{@.metadata.name}:{range @.status.conditions[?(@.type=="Ready")]}{@.type}={@.status};{end}{end}
+' 
+for i in 1 2 3; do     echo $number;     yes="number$number/";     echo $yes     ((number++))
+kubectl get nodes -o jsonpath='{range .items[1]}{@.metadata.name}:{range @.status.conditions[?(@.type=="Ready")]}{@.type}={@.status};{end}{end}'
+clear
+kubectl get nodes -o jsonpath='{.items[1]}{@.metadata.name}:{range @.status.conditions[?(@.type=="Ready")]}{@.type}={@.status};{end}{end}'
+clear
+kubectl get nodes -o jsonpath='{@.items[1]}{@.metadata.name}:{range @.status.conditions[?(@.type=="Ready")]}{@.type}={@.status};{end}{end}'
+clear
+kubectl get nodes -o jsonpath='{range .items[1]}{@.metadata.name}:{range @.status.conditions[?(@.type=="Ready")]}{@.type}={@.status};{end}{end}'
+clear
+ls
+touch check-is-cluster-ready.sh
+ls
+nano check-is-cluster-ready.sh 
+bash check-is-cluster-ready.sh 
+nano check-is-cluster-ready.sh 
+clear
+ls
+bash check-is-cluster-ready.sh
+nano check-is-cluster-ready.sh
+bash check-is-cluster-ready.sh
+clear
+mkdir ins
+ls
+cd ins
+touch master-components.txt
+ls
+nano master-components.txt 
+cd..
+..
+cd ..
+kubelet
+kubeadm
+cd ins/
+touch cluster-info.txt
+nano cluster-info.txt 
+nano check-is-cluster-ready.sh
+bash check-is-cluster-ready.sh
+kubectl get po -n kube-system
+kubectl top node
+exit
+clear
+sudo wget https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+ls
+nano components.yaml 
+sudo nano components.yaml 
+kubectl apply -f components.yaml 
+kubectl top
+kubectl top node
+nano components.yaml 
+nano check-is-cluster-ready.sh
+kubectl get nodes
+kubectl get po -n kube-system
+kubectl get po -n kube-system | grep metric
+sudo kubectl top node
+sudo kubectl top nodes
+sudo kubectl top pod
+kubectl top node
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+kubectl get nodes -o jsonpath='{.items[*].spec}'
+clear
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+kubectl cluster-info dump | grep -m 1 cluster-cidr
+clear
+ls
+ps -ef | grep "cluster-cidr"
+ps -ef
+ps -ef | grep "cluster-cidr"
+nano /etc/kubernetes/manifests/kube-controller-manager.yaml
+cd ..
+ls
+cd ..
+ls
+cd etc/
+cd kubernetes/
+cd manifests/
+ls
+nano kube-controller-manager.yaml 
+sudo nano kube-controller-manager.yaml 
+cdc ..
+cd ..
+ls
+cd usr
+ls
+cd ..
+cd home
+ls
+cd ins
+l
+ls
+clear
+ls
+kube-apiserver
+ls
+cd ins
+ls
+nano master-components.txt 
+kubectl cluster-info
+etcd --version
+etcd
+clear
+kubectl etcd
+clear
+etcd 
+cd /etc/kubernetes/manifests/
+ls
+nano etcd.yaml 
+sudo nano etcd.yaml 
+sudo nano kube-apiserver.yaml 
+sudo nano kube-controller-manager.yaml 
+sudo nano kube-scheduler.yaml 
+cd ..
+ls
+cd manifests/
+sudo nano etcd.yaml 
+sudo nano kube-scheduler.yaml 
+sudo nano etcd.yaml 
+kubectl get pod
+sudo nano etcd.yaml 
+sudo nano kube-scheduler.yaml 
+sudo nano kube-controller-manager.yaml 
+sudo nano kube-apiserver.yaml 
+cd home/ins
+cd /home/ins
+ls
+cd ins
+nano master-components.txt 
+kubectl cluster-info
+kubelet
+kubelet --version
+whereis kubelet
+cd /usr/bin/kubelet
+cd /usr/bin/
+ls
+kubelet --version
+kubelet --help
+clear
+cd /home/ins
+ls
+cd ins
+nano master-components.txt 
+kubectl get pods
+kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces | grep dns
+ls
+nano master-components.txt 
+kubectl cluster-info
+kubectl cluster-info dump
+kubectl cluster-info dump | grep -m 1 service-cluster-ip-range
+kubectl cluster-info dump | grep -m 1 cluster-cidr
+kubectl cluster-info dump | grep -m 1 worker-1
+kubeadm config view
+sudo kubeadm config view
+sudo kubeadm config view | grep Subnet
+ls
+cd ..
+kubeadm config
+kubeadm config view
+kubeadm config print
+kubeadm config print init-defaults
+kubeadm config view | grep Subnet
+kubeadm config print | grep Subnet
+clear
+ls
+cd ins
+ls
+nano master-components.txt 
+cd ..
+kubectl get service cidr
+kubectl cluster-info dump
+kubectl cluster-info dump | grep -m 1 worker
+kubectl cluster-info dump | grep  worker
+kubectl cluster-info dump | grep  worker-1
+kubectl cluster-info dump | grep -m 1 worker > worker1.txt
+ls
+nano worker1.txt 
+del worker1.txt 
+rm worker1.txt 
+ks
+ls
+clear
+kubectl top
+kubectl top pod
+kubectl top node
+kubectl get pods
+kubectl get nodes
+kubectl top node
+cd ins
+ls
+cd ..
+ls
+nano check-pod-resource-usage.sh 
+bash check-pod-resource-usage.sh 
+kubectl get pods --all-namespaces
+kubectl top nodes --sort-by=cpu
+kubectl top nodes --sort-by=memory
+nano check-pod
+nano check-pod-resource-usage.sh 
+bash check-pod-resource-usage.sh 
+clear
+cd ins
+kubectl get pods --all-namespaces
+nano cluster-info.txt 
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+kubectl cluster-info dump | grep -m 1 cluster-cidr
+kubectl cluster-info dump | grep -m 1 worker-1
+kubectl cluster-info dump | grep -m 10 worker-1
+kubectl cluster-info dump | grep -m 20 worker-1
+kubectl cluster-info dump | grep -m 20 worker-2
+kubectl cluster-info dump | grep -m 20 master
+kubectl cluster-info dump | grep -m 10 v4Prefix
+nano cluster-info.txt 
+clear
+kubectl get node
+kubectl get pods --show-labels
+kubectl get pods --show-labels --all-namespaces
+kubectl get nodes --show-labels
+kubectl label nodes worker-1 ingress=true
+kubectl label nodes worker-2 ingress=true
+kubectl get nodes --show-labels
+ls
+kubectl edit nodes worker-1
+kubectl get nodes --show-labels
+kubectl edit nodes worker-1
+clear
+kubectl edit nodes worker-1
+kubectl edit nodes worker-2
+clear
+helm install metallb metallb/metallb
+cd ..
+helm repo add metallb https://metallb.github.io/metallb
+helm rep list
+helm repo list
+vim values.yaml
+nano values.yaml
+ls
+helm install metallb metallb/metallb --create-namespace --namespace metallb-system -f values.yaml
+kubectl get all -n metallb-system
+ls
+pwd
+nano values.yaml 
+helm repo add ingress-nginx 
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install ingress-nginx ingress-nginx --create-namespace --namespace ingress-nginx -f values.yaml
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace -f values.yaml
+nano values.yaml
+kubectl edit worker-1
+kubectl edit node worker-1
+ip a
+kubectl edit worker-1
+kubectl edit node worker-1
+kubect -n metallb-system get pod
+kubectl -n metallb-system get pod
+kubectl -n metallb-system log metallb-speaker-8zbjv
+kubectl -n metallb-system logs metallb-speaker-8zbjv
+kubectl -n metallb-system logs metallb-speaker-8zbjv | grep 10.18.9.7
+kubectl 
+kubectl -n metallb-system get service
+kubectl -n kube-system get service
+kubectl -n ingress-nginx get service
+kubectl -n metallb-system get pods -o wide
+kubectl get nodes
+bash check-is-cluster-ready.sh
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+touch localstorage.yaml
+kubectl create -f localstorage.yaml
+toch pv-test.yaml
+touch pv-test.yaml
+kubectl apply -f pv-test.yaml
+touch pvc-test
+touch pvc-test.yaml
+kubectl apply -f pvc-test.yaml
+kubectl get pvc
+kubectl get pv
+kubectl edit pvc pvc-test --record
+kubectl get pvc
+kubectl describe pvc pvc-test > storage-verification.txt
+bash check-is-cluster-ready.sh
+kubectl get nodes
+bash check-pod-resource-usage.sh 
+clear
+bash check-pod-resource-usage.sh 
+kubectl get namespaces
+kubectl create ns cldinf-app
+kubectl get namespaces
+bash check-is-cluster-ready.sh
+bash check-pod-resource-usage.sh 
+kubectl get pod --show-labels
+kubectl -n ingress-nginx get pod --show-labels
+kubectl -n ingress-nginx get svc
+kubectl -n ingress-nginx get svc -o wide
+cd three-tier-application-k8s/
+kubectl create -f db_service.yaml 
+cd ..
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl apply -f pvc-cldinf-app.yaml 
+cd three-tier-application-k8s/
+kubectl apply -f db_Deployment.yaml 
+cd three-tier-application-k8s/
+kubectl apply -f db_Deployment.yaml 
+kubectl apply -f db_service.yaml 
+kubectl apply -f web_ingress.yaml 
+clear
+kubectl apply -f web_ingress.yaml 
+cd three-tier-application-k8s
+kubectl apply -f web_ingress.yaml 
+kubectl apply -f ingress_service.yaml 
+kubectl apply -f web_Deployment.yaml 
+clear
+kubectl apply -f web_Deployment.yaml 
+kubectl create -f web_Deployment.yaml 
+kubectl apply -f web_Deployment.yaml 
+clear
+kubectl apply -f web_Deployment.yaml 
+kubectl apply -f ingress_service.yaml 
+cd /bin/api
+cd ./bin/api
+clear
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl apply -f db_service.yaml 
+kubectl apply -f db_Deployment.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl apply -f api_service.yaml 
+kubectl get pods -a
+kubectl get pods -A
+kubectl create secret docker-registry regcred --docker-server=https://registry.gitlab.ost.ch:45023 --docker-username=USERNAME --docker-password=PASSWORT \
+kubectl create secret docker-registry regcred --docker-server=https://registry.gitlab.ost.ch:45023 --docker-username=gitlab+deploy-token-202 --docker-password=tKo2JRMFjKsyWasDeoGN --namespace=cldinf-app
+kubectl apply -f web_Deployment.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get Pods -A
+kubectl describe cldinf-app-api-85cd6ff68-wdbdt
+kubectl describe cldinf-app-api-85cd6ff68-wdbdt -n=cldinf-app
+kubectl describe pods cldinf-app-api-85cd6ff68-wdbdt -n=cldinf-app
+kubectl get pods -A
+kubectl delete pods cldinf-web-deployment-996dffd4c-md82h -n=cldinf-app
+kubectl get pods -A
+kubectl delete pod cldinf-web-deployment-996dffd4c-md82h -n=cldinf-app
+kubectl delete pod cldinf-web-deployment-996dffd4c-md82h -n=default
+kubectl get pods -A
+kubectl get deployments
+kubectl get deployments -A
+kubectl delete deployments.apps -n=default cldinf-web-deployment 
+kubectl get deployments -A
+clear
+kubectl get pods -A
+kubectl describe pods cldinf-app-api-85cd6ff68-wdbdt -n=cldinf-app
+kubectl apply -f db_service.yaml 
+kubectl get pods -A
+kubectl get services
+kubectl get services -A
+kubectl delete service cldinf-api-service 
+kubectl delete service cldinf-db-service 
+kubectl delete service cldinf-ingress-service 
+kubectl get services -A
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl apply -f db_service.yaml 
+kubectl apply -f db_Deploy
+kubectl apply -f db_Deployment.yaml 
+kubectl apply -f web_ingress.yaml 
+kubectl apply -f ingress_service.yaml 
+kubectl apply -f web_Deployment.yaml 
+kubectl get pods -A
+kubectl get service
+kubectl get services -A
+kubectl get pods -A
+kubectl get deployments
+kubectl get deployments -n=cldinf-app
+kubectl get deployments -A
+kubectl get pods -A
+kubectl delete pod cldinf-app-api-85cd6ff68-wdbdt -n=cldinf-app
+kubectl get pods -A
+kubectl get deployments.apps -A
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+kubectl get deployments.apps -A
+kubectl get pods -A
+kubectl delete pod cldinf-app-api-85cd6ff68-52zk5 -n=cldinf-app
+kubectl get pods -A
+kubectl delete pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pods -A
+kubectl describe cldinf-app-db-0 -n=cldinf-app
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+cd ..
+kubectl apply -f localstorage.yaml 
+kubectl apply -f pv-cldinf-app.yaml
+kubectl apply -f pvc-cldinf-app.yaml 
+kubectl apply -f localstorage.yaml 
+kubectl apply -f pv-cldinf-app.yaml
+kubectl apply -f pvc-cldinf-app.yaml 
+cd three-tier-application-k8s/
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl delete cldinf-app-db-0  -n=cldinf-app
+kubectl delete cldinf-app-db-0 -n=cldinf-app
+kubectl delete pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+cd ..
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl apply -f localstorage.yaml 
+cd three-tier-application-k8s/
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl delete pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+cd ..
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl delete
+kubectl delete persistentvolume pv-cldinf-app -n=cldinf-app
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl delete persistentvolume pv-cldinf-app -n=cldinf-app
+clear
+cd /mnt/data
+cd ./mnt/data
+clear
+kubectl apply pv-cldinf-app.yaml 
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl apply localstorage.yaml 
+kubectl apply -f localstorage.yaml 
+cd the
+cd three-tier-application-k8s/
+kubectl get pods -A
+cd.. 
+cd ..
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl apply -f pvc-cldinf-app.yaml 
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl delete pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pod -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl delete pvc --all
+kubectl delete pv --all
+kubectl delete pod -n=cldinf-app
+kubectl delete pod --all -n=cldinf-app
+kubectl get pods -A
+kubectl apply localstorage.yaml 
+kubectl apply -f localstorage.yaml 
+kubectl apply -f pv-cldinf-app.yaml 
+kubectl apply -f pvc-cldinf-app.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0  -n=cldinf-app
+kubectl get pods -A
+cd three-tier-application-k8s/
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl apply -f api_service.yaml 
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-85cd6ff68-n8dhr
+kubectl describe pod cldinf-app-api-85cd6ff68-n8dhr -n=cldinf-app
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl describe pod cldinf-app-api-85cd6ff68-n8dhr -n=cldinf-app
+kubectl get pods -A
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl get deployment
+kubectl get deployment -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+clear
+kubectl get pods -A
+clear
+kubectl apply -f db_Deployment.yaml 
+kubectl get pods -A
+clear
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl apply -f db_Deployment.yaml 
+kubectl get pods -A
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl get deployment -n=cldinf-app
+kubectl delete service cldinf-app-api -n=cldinf-app
+kubectl delete deployment cldinf-app-api -n=cldinf-app
+clear
+kubectl get pod -A
+clear
+kubectl get pod -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+clear
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pod -A
+clear
+kubectl get pod -A
+kubectl describe pod cldinf-app-api-85cd6ff68-nrbzd -n=cldinf-app
+kubectl get pod -A
+kubectl describe pod cldinf-app-api-85cd6ff68-nrbzd -n=cldinf-app
+clear
+kubectl get deploy
+ubectl get deplment -n=cldinf-app
+kubectl get deplment -n=cldinf-app
+kubectl get deployment -n=cldinf-app
+kubectl delete deployment cldinf-app-api -n=cldinf-app
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+clear
+kubectl get pods -A
+kubectl get pods _A
+kubectl get pods -A
+kubectl get all
+kubectl get all -n=cldinf-app
+cd three-tier-application-k8s/
+kubectl apply -f db_Deployment.yaml 
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-85cd6ff68-rbg47 -n=cldinf-app
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+cd three-tier-application-k8s/
+kubectl apply -f db_Deployment.yaml 
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl apply -f api_deployment.yaml 
+kubectl describe pod cldinf-app-api-f9dfb586f-446z7 -n=cldinf-app
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-ap -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+clear
+kubectl apply -f db_Deployment.yaml 
+kubectl get pods -A
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+clear
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-57fccdd686-7lp96
+kubectl describe pod cldinf-app-api-57fccdd686-7lp96 -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+cat var/log/logs.log
+kubectl apply -f api_deployment.yaml 
+ls
+cd ..
+ls
+cd ..
+ls
+cd ..
+ls
+cd /var
+ls
+cd log/
+ls
+cd /home/ins/
+cd three-tier-application-k8s/
+ls
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+clear
+kubectl get pods -A
+cd /var/lib
+ls
+cd /home/ins/
+cd three
+cd three-tier-application-k8s/
+kubectl apply -f db_Deployment.yaml 
+kubectl get pods -A
+clear
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-65ff456967-qgjnq -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-744878859b-6x6tv -n=cldinf-app
+kubectl apply -f db_Deployment.yaml 
+clear
+kubectl get pods -A
+clear
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl get get pods -n=cldinf-app
+kubectl get get pods -A
+kubectl get pods -n=cldinf-app
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+clear
+kubectl get pods -A
+kubectl delete deployments.apps -n=cldinf-app
+kubectl delete deployments.apps --all -n=cldinf-app
+kubectl delete service --all -n=cldinf-app
+clear
+kubectl get pods -A
+kubectl apply -f db_service.yaml 
+kubectl apply -f db_Deployment.yaml 
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl delete pod cldinf-app-db-0 -n=cldinf-app
+kubectl get pods -A
+kubectl delete pod cldinf-app-api-5cc69f748b-vxcmz -n=cldinf-app
+kubectl get pods -A
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+clear
+kubectl get pods -A
+kubectl apply -f web_ingress.yaml 
+kubectl apply -f ingress_service.yaml 
+kubectl apply -f web_deploy
+kubectl apply -f web_Deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl log pod cldinf-app-api-5cc69f748b-8z5hb -n=cldinf-app
+kubectl logs pod cldinf-app-api-5cc69f748b-8z5hb -n=cldinf-app
+kubectl logs cldinf-app-api-5cc69f748b-8z5hb -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl logs cldinf-app-api-5cc69f748b-8z5hb -n=cldinf-app
+kubectl get pods -A
+kubectl logs cldinf-app-api-69bccd7996-b9jzf -n=cldinf-app
+cd /var/log
+ls
+kubectl describe cldinf-app-api-69bccd7996-b9jzf -n=cldinf-app
+kubectl describe pod cldinf-app-api-69bccd7996-b9jzf -n=cldinf-app
+cd /home/ins
+ls
+cd three
+cd three-tier-application-k8s/
+clear
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+kubectl apply -f api_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+kubectl logs cldinf-app-api-64b5b98d76-d7jnq -n=cldinf-app
+kubectl describe pod cldinf-app-api-64b5b98d76-d7jnq -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl logs cldinf-app-api-6d78bfb9dc-l8ts6 -n=cldinf-app
+kubectl get pods -A
+cd /bin
+ls
+kubectl get pods
+kubectl get pods -A
+kubectl logs cldinf-app-api-6d78bfb9dc-l8ts6
+kubectl logs cldinf-app-api-6d78bfb9dc-l8ts6 -n=cldinf-app
+cd three-tier-application-k8s/
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+clear
+kubectl get pods -A
+clear
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl logs cldinf-app-api-69bccd7996-8t7wr -n=cldinf-app
+clear
+kubectl get pods _A
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-69bccd7996-8t7wr -n=cldinf-app
+clear
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-69bccd7996-8t7wr -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete pod cldinf-app-api -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+kubectl logs cldinf-app-api-5549d6947d-j7hdc
+kubectl logs cldinf-app-api-5549d6947d-j7hdc -n=cldinf-app
+ubectl get deploents.apps -n=cldinf-app
+kubectl get deployments.apps -n=cldinf-app
+clear
+ubectl get seice
+clear
+kubectl get service
+clear
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+clear
+kubectl get pods -A
+kubectl describe cldinf-app-db-0 
+kubectl describe pod cldinf-app-db-0 
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get deployments.apps 
+kubectl get deployments.apps  -n=cldinf-app
+kubectl delete deployments.apps cldinf-app-api -n=cldinf-app
+clear
+kubectl get pods -A
+clear
+kubectl get pods -A
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl printenv cldinf-app-db-0
+kubectl exec cldinf-app-db-0 -- printenv
+kubectl exec cldinf-app-db-0 -n=cldinf-app -- printenv
+kubectl exec cldinf-app-db-0 -n=cldinf-app --printenv
+kubectl exec cldinf-app-db-0 -n=cldinf-app -- printenv
+kubectl exec --help
+kubectl exec cldinf-app-db-0 -n=cldinf-app -- printenv
+kubectl describe pod cldinf-app-db-0 -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-69bccd7996-mcmm4 -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get deployments.apps 
+kubectl get deployments.apps -n=cldinf-app
+kubectl get pods -A
+kubectl get service -n=cldinf-app
+ubectl get serv
+kubectl get service -n=cldinf-app
+kubectl apply -f web_ingress.yaml 
+kubectl apply -f ingress_service.yaml 
+kubectl apply -f web_ingress.yaml 
+kubectl apply -f ingress_service.yaml 
+kubectl get pods -A
+kubectl apply -f web_ingress.yaml 
+kubectl get ingress -n=cldinf-app
+kubectl apply -f web_ingress.yaml 
+kubectl get ingress -n=cldinf-app
+kubectl apply -f web_ingress.yaml 
+kubectl get ingress -n=cldinf-app
+kubectl apply -f web_ingress.yaml 
+kubectl apply -f ingress_service.yaml 
+kubectl apply -f web_service.yaml 
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-ingress-service -n=cldinf-app
+kubectl get service -n=cldinf-app
+kubectl apply -f web_service.yaml 
+kubectl delete service cldinf-web-service -n=cldinf-app
+kubectl apply -f web_service.yaml 
+kubectl get service
+kubectl get service -n=cldinf-app
+kubectl get pod -A
+kubectl get pods -A
+kubectl exec -it cldinf-app-api-68c8bb6db4-tbv7f -- bash
+kubectl exec -it cldinf-app-api-68c8bb6db4-tbv7f -n=cldinf-app -- bash
+kubectl exec -it cldinf-app-api-68c8bb6db4-tbv7f -n=cldinf-app -- sh
+kubectl logs
+kubectl logs cldinf-web-deployment-996dffd4c-jgzwb
+kubectl logs cldinf-web-deployment-996dffd4c-jgzwb -n=cldinf-app
+cd three-tier-application-k8s/
+kubectl apply -f web_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+kubectl logs cldinf-web-deployment-5dd8454b55-dkc6x -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-dkc6x -n=cldinf-app -- sh
+kubectl get service -n=cldinf-app
+kubectl apply -f api_service.yaml 
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-api-service -n=cldinf-app
+kubectl apply -f api_service.yaml 
+kubectl get service -n=cldinf-app
+kubectl delete service cldinf-db-service -n=cldinf-app
+kubectl delete service cldinf-web-service -n=cldinf-app
+kubectl apply -f web_service.yaml 
+kubectl apply -f db_service.yaml 
+kubectl get service -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-dkc6x -n=cldinf-app -- sh
+kubectl delete deployments.apps --all -n=cldinf-app
+kubectl get statefulsets.apps 
+kubectl get statefulsets.apps -n=cldinf-app
+kubectl apply -f api_deployment.yaml 
+kubectl apply -f web_deployment.yaml 
+kubectl get pods -A
+kubectl get pod -n=cldinf-app -o wide
+curl 10.0.0.105
+curl 10.0.0.105:8000/time
+curl 10.0.0.25
+curl 10.0.0.25:8000
+curl 10.0.0.25:8080
+kubectl get pods -A
+kubectl describe pod cldinf-web-deployment-5dd8454b55-qmth8 -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-qmth8 -n=cldinf-app -- sh
+clear
+kubectl get services -n=cldinf-app
+kubectl delete services --all -n=cldinf-app
+kubectl delete deployments.apps --all -n=cldinf-app
+kubectl apply -f db_service.yaml 
+kubectl apply -f api_service.yaml 
+kubectl apply -f web_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl apply -f web_deployment.yaml 
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl get pods -A
+curl 10.0.0.25:8000
+kubectl get pods -o wide
+kubectl get pods -o wide -n=cldinf-app
+curl 10.0.0.68:8000
+curl 10.0.0.68:8000/time
+curl 10.0.0.179/8080/time
+kubectl apply -f web_ingress.yaml 
+curl 10.0.0.179/8080/time
+curl 10.0.0.68:8000/time
+clear
+kubectl get pods -A
+kubectl delete deployments.apps -n=cldinf-app
+kubectl delete deployments.apps --all -n=cldinf-app
+kubectl delete service --all -n=cldinf-app
+clear
+kubectl apply -f db_service.yaml 
+kubectl apply -f api_service.yaml 
+kubectl apply -f web_service.yaml 
+kubectl apply -f api_deployment.yaml 
+kubectl apply -f web_deployment.yaml 
+kuebctl get pods -A
+kubectl get pods -A
+kubectl get pods -A -o wide
+kubectl get pods -A -o wide -n=cldinf-app
+curl 10.0.0.178:8080/time
+curl 10.0.0.233:8080/time
+curl 10.0.0.24:8080/time
+kubectl apply -f web_ingress.yaml 
+curl 10.0.0.24:8080/time
+kubectl get pods -A -o wide
+curl 10.0.0.178:8080/time
+curl 10.0.0.178:8080
+curl 10.0.0.239:8080/time
+curl 10.0.0.239:8000/time
+clear
+kubectl get services -n=cldinf-app
+curl 10.105.16.111:80
+curl 10.105.16.111:8080
+kubectl apply web_service.yaml 
+kubectl apply -f web_service.yaml 
+kubectl -n=cldinf-app get endpoints
+kubectl apply -f web_service.yaml 
+kubectl apply -f api_service.yaml 
+kubectl -n=cldinf-app get endpoints
+kubectl -n cldinf-app get po
+kubectl -n cldinf-app get po -o wide
+curl 10.0.0.239:8000/time
+kubectl -n cldinf-app get svc
+
+kubectl -n cldinf-app describe svc cldinf-api-service
+kubectl -n cldinf-app get endpoints
+cd tshoot/
+kubectl apply -f nginx-depl.yaml 
+kubectl delete deployments.apps -n=tshoot-1
+kubectl delete deployments.apps --all -n=tshoot-1
+kubectl apply -f nginx-depl.yaml 
+kubectl get pods -n=tshoot-1
+kubectl describe pod my-nginx-7c6fdcdcd8-g7x7r -n=tshoot-1
+kubectl delete deployments.apps --all -n=tshoot-1
+kubectl apply -f nginx-depl.yaml 
+kubectl get pods -n=tshoot-1
+clear
+kubectl get pods -n=tshoot-1
+kubectl describe pod my-nginx-855dd474f9-crsnx -n=tshoot-1
+kubectl delete service --all -n=tshoot-1
+kubectl apply nginx-ser.yaml 
+kubectl apply -f nginx-ser.yaml 
+kubectl get pods -n=tshoot-1
+kubectl describe pod my-nginx-855dd474f9-crsnx -n=tshoot-1
+cd ../network-policies/
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml 
+ubectl delete networkpolicies.networking.k8s.io web-network
+kubectl apply -f network-policy-web.yaml 
+kubectl delete networkpolicies.networking.k8s.io web-network-policy -n=cldinf-app
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io web-network-policy -n=cldinf-app
+kubectl get pods -A
+kubectl get pods -n=ingress-nginx
+kubectl get pods -n=ingress-nginx -o wide
+kubectl describe pod ingress-nginx-controller-pmvfx -n=ingress-nginx
+kubectl apply -f network-policy-web.yaml 
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+cd network-policies/
+kubectl apply -f network-policy.yaml 
+kubectl get pods -A
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+kubectl get networkpolicies.networking.k8s.io 
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io test-network-policy -n=cldinf-app
+kubectl apply -f network-policy.yaml 
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+clear
+kubectl get pods -A
+kubectl describe pod cldinf-web-deployment-5dd8454b55-b47h2
+kubectl describe pod cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app
+kubectl get pods -A
+clear
+kubectl get pods -A
+clear
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+clear
+kubectl get pods -A
+kubectl get networkpolicies.networking.k8s.io 
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io test-network-policy -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+kubectl exec -it cldinf-app-db-0 -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-app-db-0 -n=cldinf-app -- sh
+kubectl apply -f network-policy.yaml 
+clear
+kubectl apply -f network-policy-db.yaml 
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io test-network-policy -n=cldinf-app
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml
+kubectl delete networkpolicies.networking.k8s.io web
+ubectl delete networkpolicies.networking.k8s.io w-network-policy -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io web-network-policy -n=cldinf-app
+kubectl get pods -A
+kubectl delete networkpolicies.networking.k8s.io -n=cldinf-app --all
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml
+kubectl apply -f network-policy-web.yaml
+kubectl get networkpolicies.networking.k8s.io 
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl apply -f network-policy-web.yaml
+kubectl apply -f https://github.com/INSRapperswil/k8stshoot-
+kubectl apply -f https://github.com/INSRapperswil/k8stshoot-lab/raw/main/tshoot-lab.yaml
+kubectl apply -f https://github.com/INSRapperswil
+kubectl apply -f https://github.com/INSRapperswil/k8stshoot-lab/raw/main/tshoot-lab.yaml
+kubectl apply -f https://raw.githubusercontent.com/INSRapperswil/k8s-tshoot-lab/main/tshoot-lab.yaml
+kubectl get all -n=tshoot1-1
+kubectl get all -n=tshoot-1
+kubectl apply network-policy-api.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml 
+kubectl apply -f network-policy-db.yaml 
+kubectl get pods -A
+kubectl get pods -n=ingress-nginx -o wide
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl get pods -n=cldinf-app
+kubectl get pods -n=tshoot-1
+kubectl describe pod my-nginx-7f455c4c8c-pltr6 -n=tshoot-1
+clear
+kubectl edit deployments.apps my-nginx -n=tshoot-1
+kubectl get pods -n=tshoot-1
+k get po -A
+k get po -n cldinf-app -0wide
+k get po -n cldinf-app -o wide
+kubectl get pods -n=tshoot-1
+kubectl describe pod my-nginx-f95c59fd5-n6klf -n=cldinf-app
+kubectl describe pod my-nginx-f95c59fd5-n6klf -n=tshoot-1
+ubectl edit deplo
+kubectl edit deployments.apps my-nginx -n=tshoot-1
+kubectl delete namespaces tshoot-1
+kubectl delete namespaces tshoot-2
+kubectl get pods -A
+kubectl apply -f https://raw.githubusercontent.com/INSRapperswil/k8s-tshoot-lab/main/tshoot-lab.yaml
+cd deployment.apps
+cd /deployment.apps
+cd /deployment.apps/
+cd ..
+kubectl get deployment.apps my-nginx -o yaml > ./tshoot/nginx.yaml
+kubectl get deployment.apps -n=tshoot-1
+kubectl get deployment.apps my-nginx -n=tshoot-1 -o yaml > ./tshoot/nginx.yaml
+kubectl get service -n=tshoot-1
+kubectl get service my-nginx -n=tshoot-1 -o yaml > ./tshoot/nginx-ser.yaml
+kubectl get pods -n=tshoot-2
+kubectl get pods redis -n=tshoot-2 -o yaml > ./tshoot/pod.yaml
+cd tshoot/
+kubectl apply -f nginx-depl.yaml 
+kubectl delete deployments.apps -n=tshoot-1
+kubectl delete deployments.apps -n=tshoot-1 --all
+kubectl apply -f nginx-depl.yaml 
+kubectl get pods -n=tshoot-1
+kubectl describe pod my-nginx-67c8d7dddc-lnzzb -n=tshoot-1
+kubectl apply -f nginx-ser.yaml 
+kubectl delete service -n=tshoot-1 --all
+kubectl apply -f nginx-ser.yaml 
+kubectl get deployments n=tshoot-1
+kubectl get deployments.apps n=tshoot-1
+ubectl get dep n=tshoot-1
+kubectl get deployments.apps -n=tshoot-1
+kubectl get svc
+kubectl get svc -n=tshoot-1
+kubectl get svc -n=cldinf-app
+kubectl apply -f nginx-ser.yaml 
+kubectl delete service --all -n=tshoot-1
+kubectl apply -f nginx-ser.yaml 
+kubectl delete service --all -n=tshoot-1
+kubectl apply -f nginx-ser.yaml 
+kubectl get pods -n=tshoot-2
+kubectl describe pod redis -n=tshoot-2
+kubectl apply -f pod.yaml 
+kubectl delete pod redis -n=tshoot-2
+kubectl apply -f pod.yaml 
+kubectl get pods -n=tshoot-2
+8
+You can also get this "taint" type of message when your docker environment doesn't have enough resources allocated.
+
+For example, in Docker Desktop for Mac, allocate more memory/cpu/swap in preferences, and it may solve your problem.
+
+kubectl describe pod redis -n=tshoot-2
+kubectl delete pod redis -n=tshoot-2
+kubectl apply -f pod.yaml 
+kubectl describe pod redis -n=tshoot-2
+kubectl delete pod redis -n=tshoot-2
+kubectl apply -f pod.yaml 
+kubectl describe pod redis -n=tshoot-2
+kubectl delete pod redis -n=tshoot-2
+kubectl apply -f pod.yaml 
+kubectl describe pod redis -n=tshoot-2

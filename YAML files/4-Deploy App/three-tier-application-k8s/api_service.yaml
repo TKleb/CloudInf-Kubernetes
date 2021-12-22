@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cldinf-api-service
+  namespace: cldinf-app
+spec:
+  ports:
+  - port: 8000
+  selector:
+    app: cldinf-api

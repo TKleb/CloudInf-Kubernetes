@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: db-network-policy
+  namespace: cldinf-app
+spec:
+  podSelector:
+    matchLabels:
+      app: cldinf-db
+  policyTypes:
+  - Ingress
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: cldinf-api
+      ports:
+      - protocol: TCP
+        port: 5432

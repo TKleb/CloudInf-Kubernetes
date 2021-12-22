@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cldinf-web-deployment
+  namespace: cldinf-app
+  labels:
+    app: cldinf-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cldinf-web
+  template:
+    metadata:
+      labels:
+        app: cldinf-web
+    spec:
+      containers:
+      - name: cldinf-web
+        image: registry.gitlab.ost.ch:45023/ins-stud/cldinf/hs2021/g7/cloud-infrastructure-kubernetes/web
+        ports:
+        - containerPort: 8080
+        env:
+        - name: API_HOST
+          value: cldinf-api-service
+        - name: API_PORT
+          value: "8000"
+        - name: GROUP_NAME
+          value: g7
+        - name: MODULE_NAME
+          value: cloudinf
+      imagePullSecrets:
+      - name: regcred

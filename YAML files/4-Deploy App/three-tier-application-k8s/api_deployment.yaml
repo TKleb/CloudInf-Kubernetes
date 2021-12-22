@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cldinf-app-api
+  namespace: cldinf-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cldinf-api
+  template:
+    metadata:
+      labels:
+        app: cldinf-api
+    spec:
+      containers:
+      - name: cldinf-api
+        image: registry.gitlab.ost.ch:45023/ins-stud/cldinf/hs2021/g7/cloud-infrastructure-kubernetes/api
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PG_USER
+          value: postgres
+        - name: PG_PASSWORD
+          value: pw123+
+        - name: PG_DATABASE
+          value: cldinf-db
+        - name: PG_HOST
+          value: cldinf-db-service
+      imagePullSecrets:
+      - name: regcred
