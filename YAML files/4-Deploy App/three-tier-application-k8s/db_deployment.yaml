@@ -25,7 +25,7 @@ spec:
             cpu: "1000m"
         env:
         - name: POSTGRES_USER
-          value: postgres
+          value: postgresadmin
         - name: POSTGRES_PASSWORD
           value: pw123+
         - name: POSTGRES_DB

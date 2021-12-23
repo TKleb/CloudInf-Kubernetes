@@ -1259,3 +1259,42 @@ kubectl describe pod redis -n=tshoot-2
 kubectl delete pod redis -n=tshoot-2
 kubectl apply -f pod.yaml 
 kubectl describe pod redis -n=tshoot-2
+kubectl get pods -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-b47h2 -n=cldinf-app -- sh
+cd network-policies/
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml 
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl delete networkpolicies.networking.k8s.io api-network-policy -n=cldinf-app
+kubectl apply -f network-policy-web.yaml
+kubectl apply -f network-policy-api.yaml
+kubectl -n=cldinf-app get endpoints
+cd ../three-tier-application-k8s/
+kubectl apply -f web_deployment.yaml 
+kubectl get pods -A
+kubectl describe pod cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app
+kubectl describe pod cldinf-web-deployment-5955699796-bsk5d -n=cldinf-app
+kubectl get pods -A -o wide
+kubectl get pods -n=cldinf-app -o wide
+kubectl apply -f web_deployment.yaml 
+clear
+kubectl get pods -n=cldinf-app -o wide
+kubectl describe pod cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app
+kubectl get deployments.apps -n=nginx-ingress
+kubectl get pods -A
+kubectl get deployment.apps -n=ingress-nginx
+kubectl get deployments.apps -n=ingress-nginx
+kubectl describe pod ingress-nginx-controller-5sdg6 -n=ingress-nginx
+kubectl get DaemonSet 
+kubectl get DaemonSet -n=ingress-nginx
+kubectl edit DaemonSet ingress-nginx-controller -n=ingress-nginx
+kubectl get ingress -n=cldinf-app
+cd three-tier-application-k8s/

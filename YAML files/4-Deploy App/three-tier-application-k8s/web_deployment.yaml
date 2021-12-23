@@ -7,6 +7,11 @@ metadata:
     app: cldinf-web
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 2
   selector:
     matchLabels:
       app: cldinf-web
@@ -29,5 +34,12 @@ spec:
           value: g7
         - name: MODULE_NAME
           value: cloudinf
+        #  readinessProbe:
+        #    initialDelaySeconds: 5
+        #    periodSeconds: 5
+        #    successThreshold: 2
+        #    httpGet:
+        #      path: /
+        #      port: 8080
       imagePullSecrets:
       - name: regcred

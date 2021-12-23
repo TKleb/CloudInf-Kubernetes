@@ -16,6 +16,10 @@ spec:
           matchLabels:
             app: cldinf-web
       ports:
+      - protocol: UDP
+        port: 53
+    - from:
+      ports:
       - protocol: TCP
         port: 8000
   egress:
@@ -23,6 +27,3 @@ spec:
       - podSelector:
           matchLabels:
             app: cldinf-db
-      ports:
-        - protocol: UDP
-          port: 53
