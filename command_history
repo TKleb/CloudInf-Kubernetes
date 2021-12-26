@@ -1298,3 +1298,86 @@ kubectl get DaemonSet -n=ingress-nginx
 kubectl edit DaemonSet ingress-nginx-controller -n=ingress-nginx
 kubectl get ingress -n=cldinf-app
 cd three-tier-application-k8s/
+kubectl get -A -n=cldinf-app
+clear
+kubectl get Ingress -n=cldinf-app
+clear
+kubectl get network-policies -n=cldinf-app
+kubectl get networkpolicies.networking.k8s.io -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl get pods -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+cd network-policies/
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-web.yaml 
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+kuebctl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml 
+kubectl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml 
+kubectl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+clear
+kubectl get pods -n=cldinf-app -o wide
+kubectl delete networkpolicies.networking.k8s.io --all -n=cldinf-app
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+kubectl apply -f network-policy-db.yaml 
+kubectl apply -f network-policy-api.yaml 
+kubectl apply -f network-policy-web.yaml 
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec -it cldinf-web-deployment-5dd8454b55-75jct -n=cldinf-app -- sh
+kuebctl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app -o wide
+kubectl exec cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl exec -it cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -- sh
+kubectl get pods -n=cldinf-app
+kubectl logs cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app
+cd ../three-tier-application-k8s/
+kubectl apply -f api_deployment.yaml 
+cd ../../..
+ls
+cd var/
+ls
+cd log
+ls
+cd pods/
+ls
+cd ..
+cd ,,
+cd ..
+ls
+cd home/ins/three-tier-application-k8s/
+cd ..
+cd /var/lib/docker
+cd /var/lib/
+ls
+cd dockershim/
+ls
+cd ..
+cd home/ins
+cd ../../var/
+ls
+cd ..
+cd home/ins
+clear
+kubectl logs cldinf-app-api-68c8bb6db4-qf8z5 -n=cldinf-app -c cldinf-api
+kubectl logs cldinf-app-api-68c8bb6db4-qf8z5 -n cldinf-app -c cldinf-api
+kubectl get pods -n cldinf-app
+cd ..
+cd var/log/containers/
+ls
+ls | grep cldinf
